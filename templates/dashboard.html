@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h2>Dashboard</h2>
+    <p>Welcome, {{ username }}!</p>
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+    <hr />
+
+    <!-- File Upload Section -->
+    <h3>File Upload</h3>
+    <form
+      action="{{ url_for('upload_file') }}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <label for="file">Select file to upload:</label>
+      <input type="file" name="file" id="file" /> <br />
+      <input type="submit" value="Upload File" />
+    </form>
+
+    <hr />
+
+    <!-- File Download Section -->
+    <h3>Download Files</h3>
+    {% if files %}
+    <ul>
+      {% for file in files %}
+      <li>
+        <a href="{{ url_for('download_file', filename=file) }}"> {{ file }} </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No files available for download.</p>
+    {% endif %}
+
+    <hr />
+
+    <!-- User Group Management Section -->
+    <h3>User Group Management</h3>
+
+    <!-- Display Group -->
+    <h4>Your Group:</h4>
+    <ul>
+      {% for member in group %}
+        <li>
+          {{ member }}
+          <!-- Remove member form -->
+          <form action="{{ url_for('remove_from_group') }}" method="post" style="display:inline;">
+            <input type="hidden" name="member" value="{{ member }}">
+            <input type="submit" value="Remove">
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <!-- Add new member form -->
+    <form action="{{ url_for('add_to_group') }}" method="post">
+      <input type="text" name="member" placeholder="Add Member">
+      <input type="submit" value="Add Member">
+    </form>
+  </body>
+</html>
