@@ -29,6 +29,7 @@ Make sure you have the following installed:
 ```bash
 git clone https://github.com/avkhan/Cloud-Encryption-System.git
 cd Cloud-Encryption-System
+```
 
 2. **Create a virtual environment (optional but recommended)**
 
